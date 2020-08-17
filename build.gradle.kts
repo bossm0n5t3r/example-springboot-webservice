@@ -55,7 +55,11 @@ dependencies {
     api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     api("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     api("org.springframework.boot:spring-boot-starter-web")
+    // lombok
     api("org.projectlombok:lombok")
+    // JPA
+    api("org.springframework.boot:spring-boot-starter-data-jpa")
+    api("com.h2database:h2")
 
     testApi("org.springframework.boot:spring-boot-starter-test")
     testApi("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
