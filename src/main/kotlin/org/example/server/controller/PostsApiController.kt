@@ -26,7 +26,7 @@ class PostsApiController(
         return postsService.update(id, requestDto)
     }
 
-    @GetMapping("/api/vi/posts/{id}")
+    @GetMapping("/api/v1/posts/{id}")
     fun findById(@PathVariable id: Long): PostsResponseDto {
         return postsService.findById(id)
     }
