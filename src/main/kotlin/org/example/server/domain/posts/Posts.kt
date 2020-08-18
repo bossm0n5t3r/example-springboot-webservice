@@ -6,12 +6,9 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
-
 @Entity
 class Posts() {
-    constructor(title: String,
-                content: String,
-                author: String): this() {
+    constructor(title: String, content: String, author: String) : this() {
         this.title = title
         this.content = content
         this.author = author

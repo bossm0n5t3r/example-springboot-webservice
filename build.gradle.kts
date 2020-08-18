@@ -88,3 +88,26 @@ tasks.test {
     maxHeapSize = "1536m"
     useJUnitPlatform()
 }
+
+val ktlint by configurations.creating
+
+dependencies {
+    ktlint("com.pinterest:ktlint:0.37.2")
+}
+
+val verifyKtlint = task("ktlint", JavaExec::class) {
+    description = "Check *.gradle.kts code style."
+    classpath = ktlint
+    main = "com.pinterest.ktlint.Main"
+    args("**/*.gradle.kts", "src/**/*.kt")
+}
+
+tasks.check.get().dependsOn(verifyKtlint)
+
+task("ktlintFormat", JavaExec::class) {
+    description = "Fix *.gradle.kts code style violations."
+    classpath = verifyKtlint.classpath
+    main = verifyKtlint.main
+    args("-F")
+    args(verifyKtlint.args)
+}

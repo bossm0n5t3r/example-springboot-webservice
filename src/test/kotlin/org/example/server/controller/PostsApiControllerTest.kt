@@ -16,7 +16,6 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PostsApiControllerTest {
     @LocalServerPort
@@ -58,11 +57,13 @@ class PostsApiControllerTest {
     @Test
     fun `Posts_수정된다`() {
         // given
-        val savedPosts = postsRepository.save(Posts(
-            title = "title",
-            content = "content",
-            author = "author"
-        ))
+        val savedPosts = postsRepository.save(
+            Posts(
+                title = "title",
+                content = "content",
+                author = "author"
+            )
+        )
 
         val updatedId = savedPosts.id!!
         val expectedTitle = "title2"
@@ -77,7 +78,6 @@ class PostsApiControllerTest {
 
         val requestEntity = HttpEntity(requestDto)
 
-
         // when
         val responseEntity = restTemplate.exchange(
             url,
@@ -85,7 +85,6 @@ class PostsApiControllerTest {
             requestEntity,
             Long::class.java
         )
-
 
         // then
         assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.OK)
