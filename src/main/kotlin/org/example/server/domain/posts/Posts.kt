@@ -28,4 +28,9 @@ class Posts() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
+
+    fun update(title: String, content: String) {
+        this.title = title
+        this.content = content
+    }
 }
