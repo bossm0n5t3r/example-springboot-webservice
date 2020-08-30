@@ -60,6 +60,8 @@ dependencies {
     // JPA
     api("org.springframework.boot:spring-boot-starter-data-jpa")
     api("com.h2database:h2")
+    // mustache
+    api("org.springframework.boot:spring-boot-starter-mustache")
 
     testApi("org.springframework.boot:spring-boot-starter-test")
     testApi("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")

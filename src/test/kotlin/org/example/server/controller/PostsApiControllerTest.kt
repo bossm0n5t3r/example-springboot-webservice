@@ -19,13 +19,13 @@ import org.springframework.http.ResponseEntity
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PostsApiControllerTest {
     @LocalServerPort
-    var port: Int = 0
+    private var port: Int = 0
 
     @Autowired
-    lateinit var restTemplate: TestRestTemplate
+    private lateinit var restTemplate: TestRestTemplate
 
     @Autowired
-    lateinit var postsRepository: PostsRepository
+    private lateinit var postsRepository: PostsRepository
 
     @Test
     fun `Posts_등록된다`() {
