@@ -4,6 +4,7 @@ import org.example.server.controller.dto.PostsListResponseDto
 import org.example.server.controller.dto.PostsResponseDto
 import org.example.server.controller.dto.PostsSaveRequestDto
 import org.example.server.controller.dto.PostsUpdateRequestDto
+import org.example.server.domain.posts.Posts
 import org.example.server.domain.posts.PostsRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -28,6 +29,15 @@ class PostsService(
         posts.update(requestDto.title, requestDto.content)
 
         return id
+    }
+
+    @Transactional
+    fun delete(id: Long) {
+        val posts: Posts = postsRepository.findById(id)
+            .orElseThrow {
+                throw IllegalArgumentException("해당 사용자가 없습니다. id=$id")
+            }
+        postsRepository.delete(posts)
     }
 
     @Transactional

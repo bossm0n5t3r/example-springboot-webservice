@@ -4,6 +4,7 @@ import org.example.server.controller.dto.PostsResponseDto
 import org.example.server.controller.dto.PostsSaveRequestDto
 import org.example.server.controller.dto.PostsUpdateRequestDto
 import org.example.server.service.posts.PostsService
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
@@ -23,6 +24,12 @@ class PostsApiController(
     @PutMapping("/api/v1/posts/{id}")
     fun update(@PathVariable id: Long, @RequestBody requestDto: PostsUpdateRequestDto): Long {
         return postsService.update(id, requestDto)
+    }
+
+    @DeleteMapping("/api/v1/posts/{id}")
+    fun delete(@PathVariable id: Long): Long {
+        postsService.delete(id)
+        return id
     }
 
     @GetMapping("/api/v1/posts/{id}")
