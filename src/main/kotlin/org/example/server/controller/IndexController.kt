@@ -11,4 +11,9 @@ class IndexController {
         println("hello")
         return "index"
     }
+
+    @GetMapping("/posts/save")
+    fun postsSave(): String {
+        return "posts-save"
+    }
 }
