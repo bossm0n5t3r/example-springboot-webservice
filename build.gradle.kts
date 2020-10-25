@@ -62,6 +62,8 @@ dependencies {
     api("com.h2database:h2")
     // mustache
     api("org.springframework.boot:spring-boot-starter-mustache")
+    // security
+    api("org.springframework.boot:spring-boot-starter-oauth2-client")
 
     testApi("org.springframework.boot:spring-boot-starter-test")
     testApi("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
