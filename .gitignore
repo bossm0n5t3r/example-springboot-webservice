@@ -3,3 +3,4 @@
 .idea/
 build/
 .wakatime-project
+application-oauth.properties
