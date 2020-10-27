@@ -1,7 +1,9 @@
 package org.example.server.controller
 
+import org.example.server.config.auth.LoginUser
 import org.example.server.config.auth.dto.SessionUser
 import org.example.server.controller.dto.PostsResponseDto
+import org.example.server.domain.user.User
 import org.example.server.service.posts.PostsService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -11,16 +13,12 @@ import javax.servlet.http.HttpSession
 
 @Controller
 class IndexController(
-    private val postsService: PostsService,
-    private val httpSession: HttpSession
+    private val postsService: PostsService
 ) {
-
     @GetMapping("/")
-    fun index(model: Model): String {
+    fun index(model: Model, @LoginUser user: SessionUser?): String {
         model.addAttribute("posts", postsService.findAllDesc())
-        var user = httpSession.getAttribute("user")
         if (user != null) {
-            user = user as SessionUser
             model.addAttribute("userName", user.name)
         }
         return "index"
