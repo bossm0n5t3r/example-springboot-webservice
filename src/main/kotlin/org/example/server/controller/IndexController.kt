@@ -3,13 +3,11 @@ package org.example.server.controller
 import org.example.server.config.auth.LoginUser
 import org.example.server.config.auth.dto.SessionUser
 import org.example.server.controller.dto.PostsResponseDto
-import org.example.server.domain.user.User
 import org.example.server.service.posts.PostsService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import javax.servlet.http.HttpSession
 
 @Controller
 class IndexController(

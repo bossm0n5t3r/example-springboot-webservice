@@ -64,6 +64,8 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-mustache")
     // security
     api("org.springframework.boot:spring-boot-starter-oauth2-client")
+    // jdbc
+    api("org.springframework.session:spring-session-jdbc")
 
     testApi("org.springframework.boot:spring-boot-starter-test")
     testApi("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
