@@ -11,7 +11,13 @@ class OAuthAttributes(
     val picture: String
 ) {
     companion object {
+        private val NAVER = "naver"
+
         fun of(registrationId: String, userNameAttributeName: String, attributes: Map<String, Any>): OAuthAttributes {
+            if (NAVER == registrationId) {
+                return ofNaver("id", attributes)
+            }
+
             return ofGoogle(userNameAttributeName, attributes)
         }
 
@@ -21,6 +27,17 @@ class OAuthAttributes(
                 email = attributes["email"].toString(),
                 picture = attributes["picture"].toString(),
                 attributes = attributes,
+                nameAttributeKey = userNameAttributeName
+            )
+        }
+
+        private fun ofNaver(userNameAttributeName: String, attributes: Map<String, Any>): OAuthAttributes {
+            val response: Map<String, Any> = attributes["response"] as Map<String, Any>
+            return OAuthAttributes(
+                name = response["name"]?.toString() ?: "",
+                email = response["email"]?.toString() ?: "",
+                picture = response["profileImage"]?.toString() ?: "",
+                attributes = response,
                 nameAttributeKey = userNameAttributeName
             )
         }
