@@ -72,6 +72,7 @@ dependencies {
     testApi("org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion")
     testApi("org.mockito:mockito-core:$mockitoVersion")
     testApi("org.mockito:mockito-junit-jupiter:$mockitoVersion")
+    testApi("org.springframework.security:spring-security-test")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }

@@ -1,21 +1,27 @@
 package org.example.server.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.example.server.controller.dto.PostsSaveRequestDto
 import org.example.server.controller.dto.PostsUpdateRequestDto
 import org.example.server.domain.posts.Posts
 import org.example.server.domain.posts.PostsRepository
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+import org.springframework.http.MediaType
+import org.springframework.security.test.context.support.WithMockUser
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
+import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import org.springframework.web.context.WebApplicationContext
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PostsApiControllerTest {
@@ -23,15 +29,24 @@ class PostsApiControllerTest {
     private var port: Int = 0
 
     @Autowired
-    private lateinit var restTemplate: TestRestTemplate
-
-    @Autowired
     private lateinit var postsRepository: PostsRepository
 
-    @Disabled
+    @Autowired
+    private lateinit var context: WebApplicationContext
+
+    private lateinit var mvc: MockMvc
+
+    @BeforeEach
+    fun setup() {
+        mvc = MockMvcBuilders
+            .webAppContextSetup(context)
+            .apply<DefaultMockMvcBuilder>(springSecurity())
+            .build()
+    }
+
     @Test
+    @WithMockUser(roles = ["USER"])
     fun `Posts_등록된다`() {
-        // TODO: OAuth2 구현으로 테스트가 깨짐. 임시 비활성화 상태
         // given
         val title = "title"
         val content = "content"
@@ -43,22 +58,21 @@ class PostsApiControllerTest {
         val url = "http://localhost:$port/api/v1/posts"
 
         // when
-        val responseEntity: ResponseEntity<Long> = restTemplate.postForEntity(
-            url,
-            requestDto,
-            Long::class.java
+        mvc.perform(
+            post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(ObjectMapper().writeValueAsString(requestDto))
         )
+            .andExpect(status().isOk)
 
         // then
-        assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(responseEntity.body).isGreaterThan(0L)
         val all: List<Posts> = postsRepository.findAll()
         assertThat(all[0].title).isEqualTo(title)
         assertThat(all[0].content).isEqualTo(content)
     }
 
-    @Disabled
     @Test
+    @WithMockUser(roles = ["USER"])
     fun `Posts_수정된다`() {
         // TODO: OAuth2 구현으로 테스트가 깨짐. 임시 비활성화 상태
         // given
@@ -81,19 +95,15 @@ class PostsApiControllerTest {
 
         val url = "http://localhost:$port/api/v1/posts/$updatedId"
 
-        val requestEntity = HttpEntity(requestDto)
-
         // when
-        val responseEntity = restTemplate.exchange(
-            url,
-            HttpMethod.PUT,
-            requestEntity,
-            Long::class.java
+        mvc.perform(
+            put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(ObjectMapper().writeValueAsString(requestDto))
         )
+            .andExpect(status().isOk)
 
         // then
-        assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(responseEntity.body).isGreaterThan(0L)
         val all: List<Posts> = postsRepository.findAll()
         assertThat(all[0].title).isEqualTo(expectedTitle)
         assertThat(all[0].content).isEqualTo(expectedContent)
