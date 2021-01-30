@@ -2,6 +2,7 @@ package org.example.server.controller
 
 import org.example.server.config.auth.SecurityConfig
 import org.hamcrest.Matchers.`is`
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
+@Disabled
 @WebMvcTest(
     controllers = [HelloController::class],
     excludeFilters = [
