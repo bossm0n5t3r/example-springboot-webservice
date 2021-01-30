@@ -1,8 +1,10 @@
 package org.example.server.controller.dto
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
+@Disabled
 class HelloResponseDtoTest {
     @Test
     fun `롬복_기능_테스트`() {
