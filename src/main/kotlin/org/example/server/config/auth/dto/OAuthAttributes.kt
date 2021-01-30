@@ -3,6 +3,7 @@ package org.example.server.config.auth.dto
 import org.example.server.domain.user.Role
 import org.example.server.domain.user.User
 
+@Suppress("UNCHECKED_CAST")
 class OAuthAttributes(
     val attributes: Map<String, Any>,
     val nameAttributeKey: String,
