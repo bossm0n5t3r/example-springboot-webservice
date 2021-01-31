@@ -54,20 +54,6 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }
 
-tasks.compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict", "-Xuse-experimental=kotlin.Experimental")
-        jvmTarget = "13"
-    }
-}
-
-tasks.compileTestKotlin {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict", "-Xuse-experimental=kotlin.Experimental")
-        jvmTarget = "13"
-    }
-}
-
 tasks.test {
     useJUnitPlatform()
 }
