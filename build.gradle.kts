@@ -5,12 +5,13 @@ val junitJupiterVersion: String by project
 
 plugins {
     val springBootVersion = "2.2.6.RELEASE"
-    val kotlinVersion = "1.3.71"
+    val kotlinVersion = "1.4.10"
     val springDependencyManagementVersion = "1.0.7.RELEASE"
 
     id("org.springframework.boot") version springBootVersion
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
     id("io.spring.dependency-management") version springDependencyManagementVersion
 }
 
