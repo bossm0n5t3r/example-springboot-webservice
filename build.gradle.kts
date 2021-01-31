@@ -3,29 +3,15 @@ val springBootVersion: String by project
 val mockitoVersion: String by project
 val junitJupiterVersion: String by project
 
-buildscript {
-    val kotlinVersion: String by project
-    val springBootVersion: String by project
-
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
-        classpath("org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion")
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
-    }
-}
-
 plugins {
+    val springBootVersion = "2.2.6.RELEASE"
     val kotlinVersion = "1.3.71"
+    val springDependencyManagementVersion = "1.0.7.RELEASE"
 
+    id("org.springframework.boot") version springBootVersion
     kotlin("jvm") version kotlinVersion
-    id("io.spring.dependency-management") version "1.0.7.RELEASE"
-    id("idea")
+    kotlin("plugin.spring") version kotlinVersion
+    id("io.spring.dependency-management") version springDependencyManagementVersion
 }
 
 repositories {
@@ -36,22 +22,12 @@ repositories {
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
-apply(plugin = "org.jetbrains.kotlin.jvm")
-apply(plugin = "org.jetbrains.kotlin.plugin.spring")
-apply(plugin = "java")
-apply(plugin = "idea")
-apply(plugin = "eclipse")
-apply(plugin = "org.springframework.boot")
-apply(plugin = "io.spring.dependency-management")
-
 java {
     sourceCompatibility = JavaVersion.VERSION_14
     targetCompatibility = JavaVersion.VERSION_14
 }
 
 dependencies {
-    api("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-    api("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")
     api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     api("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     api("org.springframework.boot:spring-boot-starter-web")
@@ -92,11 +68,10 @@ tasks.compileTestKotlin {
 }
 
 tasks.test {
-    maxHeapSize = "1536m"
     useJUnitPlatform()
 }
 
-val ktlint by configurations.creating
+val ktlint: Configuration by configurations.creating
 
 dependencies {
     ktlint("com.pinterest:ktlint:0.37.2")
