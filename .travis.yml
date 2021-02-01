@@ -1,0 +1,19 @@
+language: java
+jdk:
+  - openjdk14
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+script: "./gradle clean build"
+
+notifications:
+  email:
+    recipients:
+      - bossm0n5t3r@gmail.com
