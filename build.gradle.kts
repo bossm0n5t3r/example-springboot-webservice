@@ -29,7 +29,7 @@ java {
 }
 
 dependencies {
-    compileOnly("org.mariadb.jdbc:mariadb-java-client:2.6.0")
+    implementation("org.mariadb.jdbc:mariadb-java-client:2.6.0")
 
     api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     api("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
