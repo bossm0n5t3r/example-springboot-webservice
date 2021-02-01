@@ -28,6 +28,16 @@ deploy:
     acl: private
     local_dir: deploy
     wait-until-deployed: true
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: example-springboot-webservice-build
+    key: example-springboot-webservice.zip
+    bundle_type: zip
+    application: example-springboot-webservice
+    deployment_group: example-springboot-webservice-group
+    region: ap-northeast-2
+    wait-until-deployed: true
 
 notifications:
   email:
