@@ -23,7 +23,8 @@ class SecurityConfig(
                 "/css/**",
                 "/images/**",
                 "/js/**",
-                "/h2-console/**"
+                "/h2-console/**",
+                "/profile",
             )
             .permitAll()
             .antMatchers(
