@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 val kotlinVersion: String by project
 val springBootVersion: String by project
 val mockitoVersion: String by project
@@ -21,7 +24,7 @@ repositories {
 }
 
 group = "org.example"
-version = "1.0.1-SNAPSHOT"
+version = "1.0.1-SNAPSHOT-" + SimpleDateFormat("yyyyMMddHHmmss").format(Date())
 
 java {
     sourceCompatibility = JavaVersion.VERSION_14
